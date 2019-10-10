@@ -613,11 +613,12 @@ class RichText(object):
             self.add(text, **text_prop)
 
 
-    def add_tracked_change(self, *args, change_id=None, author="Unknown Author", **kwargs):
+    def start_tracked_change(self, change_id=None, author="Unknown Author"):
         from datetime import datetime
         stamp = datetime.utcnow().isoformat()
         self.xml += u'<w:ins w:id="%s" w:author="%s" w:date="%s">' % (change_id, author, stamp)
-        self.add(*args, **kwargs)
+
+    def end_tracked_change(self):
         self.xml += u'</w:ins>'
 
 
